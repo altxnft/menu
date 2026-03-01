@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tower Brew Co. — Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #1A1208;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --brown: #4A2C0A;
+    --rust: #8B3A0F;
+    --sage: #5C6B4A;
+    --paper: #EDE6D3;
+    --shadow: rgba(26,18,8,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #2C1F0E;
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-image: 
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139,58,15,0.12) 0%, transparent 50%);
+  }
+
+  /* MENU WRAPPER */
+  .menu-wrapper {
+    max-width: 900px;
+    width: 100%;
+    background: var(--cream);
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.3);
+    overflow: hidden;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Noise texture overlay */
+  .menu-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.5;
+  }
+
+  /* DECORATIVE BORDER */
+  .border-outer {
+    position: absolute;
+    inset: 12px;
+    border: 1.5px solid var(--gold);
+    pointer-events: none;
+    z-index: 5;
+  }
+  .border-inner {
+    position: absolute;
+    inset: 16px;
+    border: 0.5px solid rgba(201,168,76,0.4);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Corner ornaments */
+  .corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 6;
+    pointer-events: none;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: 8px; left: 8px; }
+  .corner-tr { top: 8px; right: 8px; transform: scaleX(-1); }
+  .corner-bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+  .corner-br { bottom: 8px; right: 8px; transform: scale(-1,-1); }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    padding: 50px 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+
+  .header-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--gold);
+    letter-spacing: 6px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    opacity: 0.85;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 20px rgba(201,168,76,0.3);
+  }
+
+  .brand-name span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .header-tagline {
+    margin-top: 14px;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 2px;
+  }
+
+  .header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 22px;
+    color: var(--gold);
+    font-size: 18px;
+    opacity: 0.7;
+  }
+  .header-divider::before, .header-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+    max-width: 120px;
+  }
+  .header-divider::after {
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  /* CONTENT AREA */
+  .content {
+    padding: 36px 60px 48px;
+    background: var(--cream);
+    background-image: 
+      radial-gradient(circle at 10% 90%, rgba(201,168,76,0.06) 0%, transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(139,58,15,0.05) 0%, transparent 40%);
+  }
+
+  /* CATEGORY */
+  .category {
+    margin-bottom: 36px;
+    animation: slideUp 0.6s ease both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .category:nth-child(1) { animation-delay: 0.1s; }
+  .category:nth-child(2) { animation-delay: 0.2s; }
+  .category:nth-child(3) { animation-delay: 0.3s; }
+  .category:nth-child(4) { animation-delay: 0.4s; }
+  .category:nth-child(5) { animation-delay: 0.5s; }
+  .category:nth-child(6) { animation-delay: 0.6s; }
+  .category:nth-child(7) { animation-delay: 0.7s; }
+  .category:nth-child(8) { animation-delay: 0.8s; }
+  .category:nth-child(9) { animation-delay: 0.9s; }
+  .category:nth-child(10) { animation-delay: 1.0s; }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .cat-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--brown);
+  }
+
+  .cat-emoji {
+    font-size: 20px;
+  }
+
+  .cat-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0.5;
+  }
+
+  /* ITEMS GRID */
+  .items-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 7px 12px 7px 0;
+    border-bottom: 1px dashed rgba(74,44,10,0.15);
+    transition: background 0.2s;
+    gap: 8px;
+  }
+
+  .item:hover {
+    background: rgba(201,168,76,0.07);
+    border-radius: 4px;
+  }
+
+  .item-name {
+    font-size: 14.5px;
+    color: var(--dark);
+    font-weight: 400;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .item-dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(74,44,10,0.25);
+    margin: 0 8px;
+    min-width: 20px;
+    align-self: flex-end;
+    margin-bottom: 3px;
+  }
+
+  .item-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--rust);
+    white-space: nowrap;
+  }
+
+  /* Single column for some cats */
+  .items-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .section-divider span {
+    color: var(--gold);
+    font-size: 20px;
+    opacity: 0.6;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+  }
+  .section-divider::after {
+    background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
+  }
+
+  /* COMBO BOX */
+  .combo-box {
+    margin: 8px 0 36px;
+    border: 1.5px solid var(--gold);
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(139,58,15,0.05));
+    padding: 18px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .combo-box::before {
+    content: '★ BEST COMBO ★';
+    position: absolute;
+    top: 10px; right: -30px;
+    background: var(--rust);
+    color: var(--cream);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 40px;
+    transform: rotate(15deg);
+  }
+
+  .combo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+
+  .combo-desc {
+    font-size: 14px;
+    color: rgba(26,18,8,0.7);
+    font-style: italic;
+  }
+
+  .combo-price {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .combo-original {
+    font-size: 14px;
+    color: rgba(26,18,8,0.45);
+    text-decoration: line-through;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .combo-final {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--rust);
+    letter-spacing: 2px;
+  }
+
+  .combo-save {
+    background: var(--sage);
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--dark);
+    padding: 28px 60px;
+    text-align: center;
+    border-top: 3px solid var(--gold);
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .footer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .footer-item-icon { font-size: 22px; }
+
+  .footer-item-label {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .footer-item-val {
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    font-style: italic;
+  }
+
+  .footer-note {
+    font-size: 11.5px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+
+  /* TAB NAV */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    background: var(--paper);
+    border-bottom: 2px solid rgba(201,168,76,0.3);
+    padding: 0 60px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: rgba(74,44,10,0.5);
+    padding: 12px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2.5px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover { color: var(--brown); }
+  .tab-btn.active {
+    color: var(--rust);
+    border-bottom-color: var(--rust);
+  }
+
+  /* Section visibility */
+  .menu-section { display: none; }
+  .menu-section.active { display: block; }
+
+  /* Price summary ribbon */
+  .price-ribbon {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: var(--dark);
+    padding: 16px 60px;
+    justify-content: center;
+  }
+
+  .ribbon-pill {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 5px 14px;
+    border-radius: 2px;
+    font-size: 12px;
+    color: rgba(245,240,232,0.75);
+    font-style: italic;
+    letter-spacing: 0.5px;
+  }
+
+  .ribbon-pill strong {
+    color: var(--gold-light);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .content { padding: 28px 28px 40px; }
+    .header { padding: 36px 28px 30px; }
+    .items-grid { grid-template-columns: 1fr; }
+    .tab-nav { padding: 0 20px; }
+    .footer { padding: 24px 28px; }
+    .price-ribbon { padding: 12px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-wrapper">
+  <!-- Decorative borders -->
+  <div class="border-outer"></div>
+  <div class="border-inner"></div>
+
+  <!-- Corner ornaments -->
+  <div class="corner corner-tl">
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 28 L2 2 L28 2" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+      <path d="M2 2 L10 10" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="corner corner-tr">
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 28 L2 2 L28 2" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+      <path d="M2 2 L10 10" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="corner corner-bl">
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 28 L2 2 L28 2" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+      <path d="M2 2 L10 10" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="corner corner-br">
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 28 L2 2 L28 2" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+      <path d="M2 2 L10 10" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow">Est. 2024 · Chennai</div>
+    <div class="brand-name">The Tower <span>Brew</span> Co.</div>
+    <div class="header-tagline">Burgers · Fried Chicken · Waffles · Specialty Coffee</div>
+    <div class="header-divider">✦</div>
+  </div>
+
+  <!-- TAB NAV -->
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab-btn active" onclick="showSection('bites')">🍗 Bites</button>
+    <button class="tab-btn" onclick="showSection('burgers')">🍔 Burgers</button>
+    <button class="tab-btn" onclick="showSection('fries-wraps')">🍟 Fries & Wraps</button>
+    <button class="tab-btn" onclick="showSection('waffles')">🧇 Waffles</button>
+    <button class="tab-btn" onclick="showSection('brews')">☕ Brews</button>
+    <button class="tab-btn" onclick="showSection('shakes')">🥤 Shakes</button>
+    <button class="tab-btn" onclick="showSection('sweets')">🍰 Sweets</button>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- BITES -->
+    <div class="menu-section active" id="bites">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🍗</span>
+          <div class="cat-title">Crispy Fried Chicken</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Crispy Lollipops (5 pcs)</span><span class="item-dots"></span><span class="item-price">₹229</span></div>
+          <div class="item"><span class="item-name">Crispy Wings (5 pcs)</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Chicken Popcorn — Small</span><span class="item-dots"></span><span class="item-price">₹129</span></div>
+          <div class="item"><span class="item-name">Chicken Popcorn — Medium</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Chicken Popcorn — Large</span><span class="item-dots"></span><span class="item-price">₹229</span></div>
+          <div class="item"><span class="item-name">Chicken Strips (4 pcs)</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🌶</span>
+          <div class="cat-title">Seasoned Variants</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Peri Peri Popcorn — Small</span><span class="item-dots"></span><span class="item-price">₹149</span></div>
+          <div class="item"><span class="item-name">Peri Peri Popcorn — Medium</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+          <div class="item"><span class="item-name">Chilli Garlic Popcorn — Small</span><span class="item-dots"></span><span class="item-price">₹149</span></div>
+          <div class="item"><span class="item-name">Saucy Popcorn — Medium</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Peri Peri Strips</span><span class="item-dots"></span><span class="item-price">₹229</span></div>
+          <div class="item"><span class="item-name">Saucy Wings (5 pcs)</span><span class="item-dots"></span><span class="item-price">₹249</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BURGERS -->
+    <div class="menu-section" id="burgers">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🍔</span>
+          <div class="cat-title">Chicken Burgers</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Classic Chicken Burger</span><span class="item-dots"></span><span class="item-price">₹189</span></div>
+          <div class="item"><span class="item-name">Zinger Burger</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Nashville Burger</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Japan Chicken Burger</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Tower Burger (Dbl Patty + Cheese)</span><span class="item-dots"></span><span class="item-price">₹319</span></div>
+          <div class="item"><span class="item-name">No Bun Burger</span><span class="item-dots"></span><span class="item-price">₹269</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🐄</span>
+          <div class="cat-title">Beef Burgers</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Texas Beef Burger</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+          <div class="item"><span class="item-name">Double Patty Beef Burger</span><span class="item-dots"></span><span class="item-price">₹289</span></div>
+          <div class="item"><span class="item-name">Nasty Beef Burger (Dbl+Egg+Cheese)</span><span class="item-dots"></span><span class="item-price">₹309</span></div>
+          <div class="item"><span class="item-name">Smoky Mandarin Beef Burger</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Tower's Spl Smash Burger</span><span class="item-dots"></span><span class="item-price">₹309</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🥬</span>
+          <div class="cat-title">Veg Burgers</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Classic Aloo Tikki Burger</span><span class="item-dots"></span><span class="item-price">₹139</span></div>
+          <div class="item"><span class="item-name">Tandoori Tikki Burger</span><span class="item-dots"></span><span class="item-price">₹149</span></div>
+          <div class="item"><span class="item-name">Classic Paneer Burger</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Tandoori Paneer Burger</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Cheesy Veg Burger</span><span class="item-dots"></span><span class="item-price">₹189</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRIES & WRAPS -->
+    <div class="menu-section" id="fries-wraps">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🍟</span>
+          <div class="cat-title">Loaded Fries</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Classic Chicken Loaded Fries</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Nashville Chicken Loaded Fries</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Japan Chicken Loaded Fries</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">OG Beef Loaded Fries</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🌯</span>
+          <div class="cat-title">Chicken Wraps</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Classic Chicken Wrap</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Zinger Chicken Wrap</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+          <div class="item"><span class="item-name">Spicy Chicken Wrap</span><span class="item-dots"></span><span class="item-price">₹189</span></div>
+          <div class="item"><span class="item-name">Chicken Loaded Wrap</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Cheesy Chicken Loaded Wrap</span><span class="item-dots"></span><span class="item-price">₹239</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🥬</span>
+          <div class="cat-title">Veg Wraps</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Classic Veg Wrap</span><span class="item-dots"></span><span class="item-price">₹129</span></div>
+          <div class="item"><span class="item-name">Veg Loaded Wrap</span><span class="item-dots"></span><span class="item-price">₹149</span></div>
+          <div class="item"><span class="item-name">Cheesy Loaded Wrap</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Spicy Veg Wrap</span><span class="item-dots"></span><span class="item-price">₹139</span></div>
+          <div class="item"><span class="item-name">Paneer Wrap</span><span class="item-dots"></span><span class="item-price">₹159</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WAFFLES -->
+    <div class="menu-section" id="waffles">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🧇</span>
+          <div class="cat-title">Artisan Waffles</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Vanilla Batter Waffle</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Brownie Batter Waffle</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Red Velvet Waffle</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+          <div class="item"><span class="item-name">Milk Chocolate Waffle</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+          <div class="item"><span class="item-name">Dark Chocolate Waffle</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Nutella Waffle</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Cookies & Cream Waffle</span><span class="item-dots"></span><span class="item-price">₹209</span></div>
+          <div class="item"><span class="item-name">Butterscotch Waffle</span><span class="item-dots"></span><span class="item-price">₹189</span></div>
+          <div class="item"><span class="item-name">Biscoff Waffle</span><span class="item-dots"></span><span class="item-price">₹259</span></div>
+          <div class="item"><span class="item-name">KitKat Waffle</span><span class="item-dots"></span><span class="item-price">₹269</span></div>
+          <div class="item"><span class="item-name">Pistachio Waffle</span><span class="item-dots"></span><span class="item-price">₹289</span></div>
+          <div class="item"><span class="item-name">Pistachio Nutella Waffle</span><span class="item-dots"></span><span class="item-price">₹269</span></div>
+          <div class="item"><span class="item-name">Pistachio Biscoff Waffle</span><span class="item-dots"></span><span class="item-price">₹289</span></div>
+          <div class="item"><span class="item-name">Biscoff Nutella Waffle</span><span class="item-dots"></span><span class="item-price">₹259</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🥐</span>
+          <div class="cat-title">Waffle Croissants</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Death by Chocolate</span><span class="item-dots"></span><span class="item-price">₹239</span></div>
+          <div class="item"><span class="item-name">Nutella Waffle Croissant</span><span class="item-dots"></span><span class="item-price">₹269</span></div>
+          <div class="item"><span class="item-name">Almond Fudge</span><span class="item-dots"></span><span class="item-price">₹249</span></div>
+          <div class="item"><span class="item-name">KitKat Affair</span><span class="item-dots"></span><span class="item-price">₹259</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BREWS -->
+    <div class="menu-section" id="brews">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">☕</span>
+          <div class="cat-title">Hot Coffee</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Espresso</span><span class="item-dots"></span><span class="item-price">₹99</span></div>
+          <div class="item"><span class="item-name">Americano</span><span class="item-dots"></span><span class="item-price">₹109</span></div>
+          <div class="item"><span class="item-name">Cappuccino</span><span class="item-dots"></span><span class="item-price">₹139</span></div>
+          <div class="item"><span class="item-name">Latte</span><span class="item-dots"></span><span class="item-price">₹149</span></div>
+          <div class="item"><span class="item-name">Flat White</span><span class="item-dots"></span><span class="item-price">₹159</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🥤</span>
+          <div class="cat-title">Cold Coffee & Specialty</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Cold Coffee</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Tiramisu Cold Coffee</span><span class="item-dots"></span><span class="item-price">₹269</span></div>
+          <div class="item"><span class="item-name">Nutella Frappe</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Mocha Frappe</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Oreo Latte</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Biscoff Latte</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Spanish Pistachio Latte</span><span class="item-dots"></span><span class="item-price">₹229</span></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🍨</span>
+          <div class="cat-title">Affogato</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Classic Affogato</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Nutella Affogato</span><span class="item-dots"></span><span class="item-price">₹199</span></div>
+          <div class="item"><span class="item-name">Pistachio Affogato</span><span class="item-dots"></span><span class="item-price">₹249</span></div>
+          <div class="item"><span class="item-name">Biscoff Affogato</span><span class="item-dots"></span><span class="item-price">₹229</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHAKES -->
+    <div class="menu-section" id="shakes">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🥤</span>
+          <div class="cat-title">Milkshakes</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Biscoff Milkshake</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Milo Milkshake</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Ferrero Rocher Milkshake</span><span class="item-dots"></span><span class="item-price">₹219</span></div>
+          <div class="item"><span class="item-name">Caramel Milkshake</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+          <div class="item"><span class="item-name">Nutella Milkshake</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Peanut Butter Milkshake</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Dark Chocolate Milkshake</span><span class="item-dots"></span><span class="item-price">₹179</span></div>
+          <div class="item"><span class="item-name">Milk Chocolate Milkshake</span><span class="item-dots"></span><span class="item-price">₹169</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SWEETS -->
+    <div class="menu-section" id="sweets">
+      <div class="category">
+        <div class="cat-header">
+          <span class="cat-emoji">🍰</span>
+          <div class="cat-title">Desserts & Snacks</div>
+          <div class="cat-line"></div>
+        </div>
+        <div class="items-grid">
+          <div class="item"><span class="item-name">Tiramisu (per slice ~100g)</span><span class="item-dots"></span><span class="item-price">₹279</span></div>
+          <div class="item"><span class="item-name">Walnut Brownie (~80g)</span><span class="item-dots"></span><span class="item-price">₹129</span></div>
+          <div class="item"><span class="item-name">Plain Brownie (~80g)</span><span class="item-dots"></span><span class="item-price">₹109</span></div>
+          <div class="item"><span class="item-name">Doughnut</span><span class="item-dots"></span><span class="item-price">₹99</span></div>
+          <div class="item"><span class="item-name">Cheese Straws (50g)</span><span class="item-dots"></span><span class="item-price">₹99</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMBO BOX -->
+    <div class="section-divider"><span>✦</span></div>
+    <div class="combo-box">
+      <div class="combo-title">Tower's Best Combo Deal</div>
+      <div class="combo-desc">Classic Chicken Burger + Classic Chicken Loaded Fries + Cold Coffee</div>
+      <div class="combo-price">
+        <span class="combo-original">₹567</span>
+        <span class="combo-final">₹529</span>
+        <span class="combo-save">SAVE ₹38</span>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+
+  <!-- PRICE RIBBON -->
+  <div class="price-ribbon">
+    <div class="ribbon-pill"><strong>Veg Burgers</strong> from ₹139</div>
+    <div class="ribbon-pill"><strong>Chicken</strong> from ₹129</div>
+    <div class="ribbon-pill"><strong>Waffles</strong> from ₹179</div>
+    <div class="ribbon-pill"><strong>Coffee</strong> from ₹99</div>
+    <div class="ribbon-pill"><strong>Shakes</strong> from ₹169</div>
+    <div class="ribbon-pill"><strong>Desserts</strong> from ₹99</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-top">
+      <div class="footer-item">
+        <span class="footer-item-icon">📞</span>
+        <span class="footer-item-label">Call Us</span>
+        <span class="footer-item-val">+91 93452 42209</span>
+      </div>
+      <div class="footer-item">
+        <span class="footer-item-icon">📸</span>
+        <span class="footer-item-label">Follow Us</span>
+        <span class="footer-item-val">@tower_brew_co</span>
+      </div>
+      <div class="footer-item">
+        <span class="footer-item-icon">🕐</span>
+        <span class="footer-item-label">Hours</span>
+        <span class="footer-item-val">11 AM – 11 PM Daily</span>
+      </div>
+    </div>
+    <div class="footer-brand">The Tower Brew Co. · Chennai</div>
+    <div class="footer-note">Prices inclusive of all taxes · Menu subject to change · @rasoi_strategy_co</div>
+  </div>
+
+</div><!-- end wrapper -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
